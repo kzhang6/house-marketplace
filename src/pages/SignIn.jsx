@@ -6,15 +6,21 @@ import visibilityIcon from '../assets/svg/visibilityIcon.svg'
 
 function SignIn() {
     const [showPassword, setShowPassword] = useState(false)
-    const [fromDta, setFormData] = useState({
+    const [formData, setFormData] = useState({
         email: '',
         password: ''
     })
-    const {email, password} = FormData
+    const {email, password} = formData
 
     const navigate = useNavigate()
 
-    const onChange = () => {}
+    const onChange = (e) => {
+        /* update form data state when user enters data in the form */
+        setFormData((prevState) => ({
+            ...prevState,
+            [e.target.id]: e.target.value   //e.target.id = email or password id
+        }))
+    }
 
     return (
         <>
@@ -73,7 +79,7 @@ function SignIn() {
                 </form>
 
                 <Link to='/sign-up' className='registerLink'>
-                    Sign up Instead
+                    Sign Up Instead
                 </Link>
             </div>
         </>
