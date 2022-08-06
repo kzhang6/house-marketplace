@@ -1,7 +1,8 @@
 import React from 'react'
 import {useState} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
+import {setDoc, doc, serverTimestamp} from 'firebase/firestore'
 import {db} from '../firebase.config'
 import {ReactComponent as ArrowRightIcon} from '../assets/svg/keyboardArrowRightIcon.svg'
 import visibilityIcon from '../assets/svg/visibilityIcon.svg'
@@ -39,6 +40,15 @@ function SignUp() {
             updateProfile(auth.currentUser, {
                 displayName: name
             })
+
+            /* register user with the firestore Database user collection */
+            // making a copy to not change the formData (name, email, password) and deleting the password so it doesn't get put into the database 
+            const formDataCopy = { ...formData }
+            delete formDataCopy.password
+            formDataCopy.timestamp = serverTimestamp()
+
+            // update the database and add user to the users collection
+            await setDoc(doc(db, 'users', user.uid), formDataCopy)
 
         navigate('/')
         } catch (error) {
