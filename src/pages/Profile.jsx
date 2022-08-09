@@ -7,10 +7,12 @@ function Profile() {
 
     const auth = getAuth()
     useEffect(() => {
-        setUser(auth.currentUser)   //login info stored in Application => IndexedDB => firebaseLocalStorage
+        setUser(auth.currentUser)
     }, [])
 
   return user ? <h1>{user.displayName}</h1> : 'Not Logged In'
 }
+
+//Firebase stores authentication in Application => IndexedDB => firebaseLocalStorage
 
 export default Profile
