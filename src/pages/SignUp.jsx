@@ -47,7 +47,9 @@ function SignUp() {
             delete formDataCopy.password
             formDataCopy.timestamp = serverTimestamp()
 
-            // update the database and add user to the users collection
+            //To create or overwrite a single document, use the set() method:
+            // https://firebase.google.com/docs/firestore/manage-data/add-data
+            // update the database and add user to the users collection in the database
             await setDoc(doc(db, 'users', user.uid), formDataCopy)
 
         navigate('/')
