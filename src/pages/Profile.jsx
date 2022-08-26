@@ -48,7 +48,7 @@ function Profile() {
         //update form state with the value of each input id
         setFormData((prevState) => ({
             ...prevState,
-            [e.target.id]:e.target.value,
+            [e.target.id]:e.target.value,   //set id to the value that's passed in
         }))
     }
 
